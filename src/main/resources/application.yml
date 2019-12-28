@@ -1,0 +1,35 @@
+#
+spring:
+  datasource:
+    url: 'jdbc:mysql://${JAVA_DB_HOST}:${JAVA_DB_PORT}/${JAVA_DB_NAME}?useUnicode=yes&characterEncoding=UTF-8'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${JAVA_DB_USER}
+    password: ${JAVA_DB_PWD}
+    continue-on-error: true
+    data: classpath:sql/init-data.sql
+    initialization-mode: always #The default value is embedded - e.g. initialize data in file init-data.sql only if you're running and embedded database, like H2.
+  jpa:
+    hibernate.ddl-auto: create
+    show-sql: true
+    open-in-view: false
+    properties.hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      enable_lazy_load_no_trans: true
+#      format_sql: true
+
+
+
+# logs the prepared statement parameters.
+#logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+
+#  Như chúng ta đã biết, hibernate có thể làm việc với các loại database khác nhau,
+#  tuy nhiên mỗi loại database lại có những cú pháp, extensions riêng.
+#  Để làm việc với các loại database khác nhau như thế,
+#  hibernate sử dụng tham “Dialect” để biết được loại database nào đang được sử dụng,
+#  như thế các câu lệnh SQL được sinh ra sẽ phù hợp với database.
+# https://stackjava.com/hibernate/cac-loai-sql-dialects-trong-hibernate.html
+
+
+
